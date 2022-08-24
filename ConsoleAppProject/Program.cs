@@ -19,10 +19,12 @@ namespace ConsoleAppProject
 
             Console.WriteLine("BNU C0453 Applications Programming 2020-2021!");
             Console.WriteLine();
-            Console.Beep();
 
             DistanceConverter converter = new DistanceConverter();
-            converter.Run();
+
+            converter.MilesToFeet();
+            converter.FeetToMiles();
+            converter.MilesToMetres();
         }
     }
 }

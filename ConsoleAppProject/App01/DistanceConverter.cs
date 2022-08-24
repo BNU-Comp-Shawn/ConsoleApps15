@@ -4,57 +4,116 @@ namespace ConsoleAppProject.App01
 {
     /// <summary>
     /// converts distance from miles to feet
+    /// converts distance from feet to miles
+    /// converts distance from miles to metres
     /// </summary>
     /// <author>
-    /// Shawn Reffell-Wyse  version 0.1
+    /// Shawn Reffell-Wyse  version 0.3
     /// </author>
     public class DistanceConverter
     {
         public const int FEET_IN_MILES = 5280;
 
+        public const double METRES_IN_MILES = 1609.34;
+
         private double miles;
 
         private double feet;
+
+        private double metres;
 
         /// <summary>
         ///  IT inputs the distance measured in miles 
         ///  calculates it in feet and outputs distance in feet
         /// </summary>
-        public void Run()
+        public void MilesToFeet()
         {
-            OutputHeading();
-            InputMiles();
-            CalculateFeet();
-            OutputFeet();    
-        }
+            OutputHeading("Converting Miles to Feet");
 
-        private void OutputHeading()
+            miles = InputDistance("Enter the number of miles > ");
+           
+            CalculateFeet();
+            OutputDistance(miles, nameof(miles), feet, nameof(feet));
+
+        }
+        /// <summary>
+        /// Prompt user to enter distance in miles
+        /// Input as double number
+        /// </summary>
+
+        public void FeetToMiles()
         {
-            Console.WriteLine("\n--------------------------");
-            Console.WriteLine("  Convert Miles to Feet  ");
-            Console.WriteLine("  by Shawn Reffell-Wyse  ");
-            Console.WriteLine("---------------------------");
+            OutputHeading("Converting Feet to Miles");
+
+            feet = InputDistance("Enter the number of feet > ");
+            CalculateMiles();
+            OutputDistance(feet, nameof(feet), miles, nameof(miles));
+        }
+        /// <summary>
+        /// Prompt user to enter distance in feet
+        /// Input feet as double number
+        /// </summary>
+
+        public void MilesToMetres()
+        {
+            OutputHeading("Converting Miles to Metres");
+
+            miles = InputDistance("Enter the number of miles > ");
+            CalculateMetres();
+            OutputDistance(miles, nameof(miles), metres, nameof(metres));
+        }
+        /// <summary>
+        /// Prompt the user to enter distance in miles
+        /// Input miles as double number
+        /// </summary>
+        private double InputDistance(string prompt)
+        {
+            Console.Write(prompt);
+            string value = Console.ReadLine();
+            return Convert.ToDouble(value);
         }
 
         /// <summary>
-        /// Prompt user to enter distance in miles
-        /// Input the miles as double number.
+        /// 
         /// </summary>
-        private void InputMiles()
-        {
-            Console.Write("Enter number of miles > ");
-            string value = Console.ReadLine();
-            miles = Convert.ToDouble(value);
-        }
-
         private void CalculateFeet()
         {
-            feet = miles * 5280;
+            feet = miles * FEET_IN_MILES;
         }
 
-        private void OutputFeet()
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void CalculateMiles()
         {
-            Console.WriteLine(miles + " miles is " + feet + " feet! ");
+            miles = feet / FEET_IN_MILES;
+        }
+
+        private void CalculateMetres()
+        {
+            metres = miles * METRES_IN_MILES;
+        }
+
+        private void OutputDistance(
+            double fromDistance, string fromUnit,
+            double toDistance, string toUnit)
+        {
+            Console.WriteLine($" {fromDistance}  {fromUnit}" + 
+                $" is {toDistance} {toUnit}!");
+        }
+
+       
+        
+        private void OutputHeading(string prompt)
+        {
+            Console.WriteLine("\n--------------------------");
+            Console.WriteLine("    Distance Convert   ");
+            Console.WriteLine("  by Shawn Reffell-Wyse  ");
+            Console.WriteLine("---------------------------");
+
+            Console.WriteLine(prompt);
+            Console.WriteLine();
         }
     }
 }
